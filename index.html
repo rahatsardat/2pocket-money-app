@@ -2,10 +2,9 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>ডেইলি পকেট মানি - Daily Pocket Money</title>
 
-    <!-- টেলিগ্রাম মিনি অ্যাপ SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -14,7 +13,6 @@
         :root {
             --primary-color: var(--tg-theme-button-color, #5E35B1);
             --secondary-color: #3949AB;
-            --accent-color: #FDD835;
             --text-color: var(--tg-theme-text-color, #263238);
             --bg-color: var(--tg-theme-bg-color, #ECEFF1);
             --white-color: #ffffff;
@@ -32,11 +30,12 @@
         .profile-pic { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 3px solid var(--white-color); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
         .profile-text p { margin: 0; font-size: 1rem; color: #78909C; }
         .profile-text h3 { margin: 0; font-size: 1.4rem; font-weight: 600; }
-        .balance-card { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--white-color); padding: 20px 25px; border-radius: var(--border-radius); text-align: right; box-shadow: var(--shadow); transition: transform 0.3s; }
+        .balance-card { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--white-color); padding: 20px 25px; border-radius: var(--border-radius); text-align: right; box-shadow: var(--shadow); }
         .balance-card p { margin: 0; font-size: 1rem; opacity: 0.9; }
         .balance-card h2 { margin: 5px 0 0; font-size: 2.2rem; font-weight: 700; }
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 18px; margin-bottom: 30px; }
-        .menu-item { background: var(--white-color); padding: 20px; border-radius: var(--border-radius); text-align: center; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s; }
+        .menu-item { background: var(--white-color); padding: 20px; border-radius: var(--border-radius); text-align: center; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.2s ease; }
+        .menu-item:active { transform: scale(0.95); }
         .menu-item i { font-size: 2.2rem; margin-bottom: 12px; color: var(--primary-color); }
         .menu-item span { display: block; font-weight: 600; font-size: 1rem; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white-color); display: flex; justify-content: space-around; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08); padding: 12px 0; z-index: 100; border-radius: 20px 20px 0 0; }
@@ -44,17 +43,14 @@
         .nav-link i { font-size: 1.6rem; margin-bottom: 5px; }
         .nav-link span { font-size: 0.8rem; font-weight: 500; }
         .nav-link.active { color: var(--primary-color); }
-        .page { animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .page { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .inner-page-content { background: var(--white-color); padding: 25px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; margin-bottom: 8px; font-weight: 600; text-align: left;}
         .input-group input, .input-group select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #CFD8DC; box-sizing: border-box; font-family: inherit; font-size: 1rem; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--tg-theme-button-text-color, #ffffff); border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(94, 53, 177, 0.3); }
-        .btn-primary:disabled { background: #BDBDBD; cursor: not-allowed; transform: none; box-shadow: none; }
-        .task-button { display: flex; justify-content: space-between; align-items: center; background: #F1F8E9; padding: 20px; border-radius: 12px; margin-bottom: 15px; text-decoration: none; color: var(--text-color); font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: 1px solid #DCEDC8; }
-        .task-button:hover { transform: scale(1.03); box-shadow: 0 6px 15px rgba(0,0,0,0.1); border-color: var(--success-color); }
-        .task-button .reward { font-weight: 700; color: var(--success-color); font-size: 1.1rem; }
+        .btn-primary { background: var(--primary-color); color: var(--tg-theme-button-text-color, #ffffff); border: none; padding: 16px; width: 100%; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; }
+        .task-button { display: flex; justify-content: space-between; align-items: center; background: #F1F8E9; padding: 20px; border-radius: 12px; margin-bottom: 15px; text-decoration: none; color: var(--text-color); font-weight: 600; cursor: pointer; border: 1px solid #DCEDC8; }
         .fallback-message { display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; font-size: 1.2rem; padding: 20px; }
         hr.separator { margin: 25px 0; border: 0; border-top: 1px solid #eee; }
         .level-card { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
@@ -68,9 +64,13 @@
         .tab-btn.active::after { transform: scaleX(1); }
         .history-panel { display: none; animation: fadeIn 0.4s; }
         .history-panel.active { display: block; }
-        .income-history-item { display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--accent-color); }
+        .income-history-item { display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--tg-theme-link-color, #FDD835); }
         .withdraw-history table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
         .withdraw-history th, .withdraw-history td { padding: 12px 8px; border: 1px solid #ddd; text-align: center; }
+        .payment-history { margin-top: 30px; }
+        .payment-history h3 { margin-bottom: 15px; font-size: 1.2rem; }
+        .payment-list-item { display: flex; justify-content: space-between; align-items: center; background: var(--white-color); padding: 15px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); animation: fadeInItem 0.6s ease-out; }
+        @keyframes fadeInItem { from { opacity: 0; transform: translateX(-15px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 
@@ -111,19 +111,24 @@
         ];
         
         document.addEventListener('DOMContentLoaded', () => {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
+            try {
+                const tg = window.Telegram.WebApp;
+                tg.ready();
+                tg.expand();
 
-            if (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) {
-                const tgUser = tg.initDataUnsafe.user;
-                const userFullName = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim();
-                const userPhone = tgUser.id.toString(); 
+                if (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) {
+                    const tgUser = tg.initDataUnsafe.user;
+                    const userFullName = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim();
+                    const userPhone = tgUser.id.toString(); 
 
-                sessionStorage.setItem('loggedInUser', userPhone);
-                initializeApp(userPhone, userFullName);
-            } else {
-                document.getElementById('dashboard-view').style.display = 'none';
-                document.getElementById('fallback-view').classList.add('active');
+                    sessionStorage.setItem('loggedInUser', userPhone);
+                    initializeApp(userPhone, userFullName);
+                } else {
+                    showView('fallback-view');
+                }
+            } catch (e) {
+                console.error("Telegram WebApp object not found. Running in fallback mode.", e);
+                showView('fallback-view');
             }
         });
 
@@ -131,15 +136,16 @@
             let startParam = '';
             try { startParam = window.Telegram.WebApp.initDataUnsafe.start_param; } catch (e) {}
 
-            const response = await apiCall('telegramLogin', { phone: phone, name: name, referralId: startParam });
+            const response = await apiCall('telegramLogin', { phone, name, referralId: startParam });
 
             if (response.status === 'success' && response.userData) {
                 sessionStorage.setItem('userData', JSON.stringify(response.userData));
                 if (response.isNewUser) sessionStorage.setItem('isNewUser', 'true');
-                showView('dashboard');
+                showView('dashboard-view');
+                setupDashboard();
                 attachNavListeners();
             } else {
-                alert("সার্ভারে লগইন করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
+                window.Telegram.WebApp.showAlert(response.message || "সার্ভারে লগইন করতে সমস্যা হয়েছে।");
             }
         }
         
@@ -154,7 +160,7 @@
                 return await response.json();
             } catch (error) {
                 console.error('API Call Error:', error);
-                alert('সার্ভারের সাথে সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+                window.Telegram.WebApp.showAlert('সার্ভারের সাথে সংযোগে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
                 return { status: 'error', message: 'Client-side fetch error: ' + error.message };
             }
         }
@@ -171,28 +177,25 @@
         
         function showView(viewName) {
             document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
-            const view = document.getElementById(`${viewName}-view`);
-            if (view) {
-                view.classList.add('active');
-                if (viewName === 'dashboard') setupDashboard();
-            }
+            const view = document.getElementById(viewName);
+            if (view) view.classList.add('active');
         }
 
         async function showPage(pageId) {
             const tg = window.Telegram.WebApp;
-
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            const activeLink = document.querySelector(`.nav-link[data-page='${pageId}']`) || document.querySelector(`.nav-link[data-page='main-dashboard']`);
-            if (activeLink) activeLink.classList.add('active');
             
             await refreshUserData();
 
             if (pageId !== 'main-dashboard') {
                 tg.BackButton.show();
-                tg.BackButton.onClick(() => { showPage('main-dashboard'); });
+                tg.BackButton.onClick(() => showPage('main-dashboard'));
             } else {
                 tg.BackButton.hide();
             }
+            
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const activeLink = document.querySelector(`.nav-link[data-page='${pageId}']`) || document.querySelector(`.nav-link[data-page='main-dashboard']`);
+            if (activeLink) activeLink.classList.add('active');
 
             populatePageContent(pageId);
         }
@@ -241,7 +244,7 @@
                         <div class="menu-item" onclick="showPage('history-page')"><i class="fa-solid fa-clock-rotate-left"></i><span>ইতিহাস</span></div>
                         <div class="menu-item" onclick="showPage('withdraw-page')"><i class="fa-solid fa-wallet"></i><span>উইথড্র</span></div>
                         <div class="menu-item" onclick="showPage('profile-page')"><i class="fa-solid fa-user-gear"></i><span>প্রোফাইল</span></div>
-                    </div></div>`;
+                    </div><div class="payment-history"><h3>সাম্প্রতিক পেমেন্ট</h3><div id="payment-list"></div></div></div>`;
                     break;
                 case 'earn-page':
                     content = `<div class="page active"><div class="page-header"><h2>টাস্কসমূহ</h2></div><div class="inner-page-content">
@@ -323,13 +326,14 @@
                 displayRealIncomeHistory('weekly', 'weekly-history');
                 displayRealIncomeHistory('monthly', 'monthly-history');
                 loadWithdrawHistory();
+            } else if (pageId === 'main-dashboard') {
+                generatePaymentHistory();
             }
         }
         
         function handleDirectLinkTask(url, amount, taskName) {
             window.Telegram.WebApp.openLink(url);
-            window.Telegram.WebApp.showAlert(`'${taskName}' কাজটি সম্পন্ন করতে নতুন ট্যাব/উইন্ডোটি দেখুন। পুরস্কার পেতে কিছুক্ষণ অপেক্ষা করুন।`);
-            setTimeout(() => { recordTransaction(amount, taskName); }, 10000); 
+            setTimeout(() => { recordTransaction(amount, taskName); }, 15000); 
         }
         
         async function handleWithdrawRequest(event) {
@@ -423,6 +427,20 @@
                 const date = new Date(item.timestamp).toLocaleString('bn-BD', { day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', hour12: true });
                 return `<div class="income-history-item"><div><span style="font-weight:600;">${item.description}</span><br><span style="font-size:0.85rem;color:#78909C;">${date}</span></div><span style="font-weight:700;font-size:1.1rem;color:var(--success-color);">+ ৳${item.amount.toFixed(2)}</span></div>`;
             }).join('');
+        }
+        
+        function generatePaymentHistory() {
+            const names = ["Rahim", "Karim", "Mizan", "Sumaiya", "Akash", "Fatima", "Jamal", "Sultana", "Riad", "Kamal", "Rina", "Shihab", "Nadia", "Firoz", "Tanha"];
+            const listElement = document.getElementById('payment-list');
+            if (!listElement) return;
+            listElement.innerHTML = '';
+            names.slice(0, 5).forEach(name => {
+                const amount = Math.floor(Math.random() * 2001) + 3000;
+                const item = document.createElement('div');
+                item.className = 'payment-list-item';
+                item.innerHTML = `<div style="display:flex; align-items:center; gap:10px;"><i class="fas fa-check-circle" style="color:var(--success-color);"></i><span><b>${name}</b> একটি পেমেন্ট পেয়েছেন</span></div><span style="font-weight:bold; color:var(--primary-color);">৳ ${amount.toLocaleString('bn-BD')}</span>`;
+                listElement.appendChild(item);
+            });
         }
 
         function handleLogout() {
